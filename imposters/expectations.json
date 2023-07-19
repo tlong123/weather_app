@@ -1,0 +1,7 @@
+{
+    "equals": {
+        "method": "GET",
+        "path": "/data/2.5/onecall"
+    },
+    "caseSensitive": false
+  }

@@ -1,0 +1,17 @@
+{
+    "port": 4001,
+    "protocol": "http",
+    "name": "fake OpenWeather response",
+    "defaultResponse": {
+        "statusCode": 200,
+        "headers": {
+            "content-type": "application/json"
+        }
+    },
+    "stubs": [
+        {
+          "predicates": [ <% include expectations.json %>],
+          "responses": [ <% include response.json %>]
+        }
+    ]
+}

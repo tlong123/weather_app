@@ -1,0 +1,53 @@
+[tool.poetry]
+name = "weather-app"
+version = "0.1.0"
+description = ""
+authors = ["Tim Long <tim_long123@hotmail.com>"]
+readme = "README.md"
+packages = [{include = "weather_app"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fastapi = "^0.100.0"
+uvicorn = "^0.23.0"
+httpx = "^0.24.1"
+pydantic = "^2.0.3"
+freezegun = "^1.2.2"
+requests = "^2.31.0"
+
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.4.0"
+black = "^23.7.0"
+poethepoet = "^0.21.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poe.tasks.pre-integration]
+help = "runs pre integration test setup"
+sequence = [
+    { cmd = "docker pull jkris/mountebank" },
+    { cmd = "docker-compose up"}
+]
+
+[tool.poe.tasks.integration]
+sequence = [
+    { cmd = "poetry run pytest ./test -m integration"}
+]
+
+[tool.poe.tasks.test]
+sequence = [
+    { cmd = "poetry run pytest ./test -m \"not integration\""}
+]
+
+[tool.poe.tasks.run_local]
+sequence= [
+    { cmd = "uvicorn src.main:app --reload"}
+]
+
+[tool.pytest.ini_options]
+markers = [
+    "integration: marks tests using external setup"
+]
