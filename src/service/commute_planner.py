@@ -10,8 +10,6 @@ class CommutePlanner:
 
     def weather_for_today(self) -> DailyForecast:
         weekly_forecast = self.forecast_fetcher.get_weekly_forecast()
-        print(f"today is: {datetime.today()}")
-        print(f"the first forecast's day is: {weekly_forecast[0].date}")
         return list(
             filter(
                 lambda daily_forecast: daily_forecast.date.day == datetime.today().day,
